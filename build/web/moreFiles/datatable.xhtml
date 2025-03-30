@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/templates/newTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html">  
+
+    <ui:define name="content">
+        <h1>Data Tables</h1>
+        <ul>
+            <li>Tag that can represent Collections in tabular form</li>
+            <li>Only need to specify column information - automatically iterates through all elements to fill rows</li>
+            <li>Elements can be made active, e.g. to invoke methods such as sorting, editing, deleting.</li>
+            <li>Attribute value of dataTable indicates collection of data</li>
+            <li>Attribute var indicates name of individual collection elements</li>
+            <li>Basic structure:<br/>
+                &nbsp;&nbsp;<tt><b>&lt;h:dataTable value=\#{someBean.collection} var=ref&gt;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h:column&gt;&lt;f:facet name=“header”&gt;title&lt;/facet&gt;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\#{ref.someattrib}&lt;/h:column&gt;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h:column>...&lt;/h:column&gt;<br/>
+                        &nbsp;&nbsp;&lt;/h:dataTable&gt;
+                    </b></tt>
+            </li>
+        </ul>
+    </ui:define>
+
+</ui:composition>
+

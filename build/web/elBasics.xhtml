@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="./templates/newTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html">  
+
+    <ui:define name="content">
+        <h1>EL Basics</h1>
+        <ul>
+            <li>EL expressions can use immediate evaluation <tt><b>\${}</b></tt> or deferred evaluation <tt><b>\#{}</b></tt> (more common)</li>
+            <li>Value expressions essentially refer to attributes – they are evaluated to yield a value (source or target):
+                <p style="text-indent: 20px"><tt><b>\#{customer.name}</b></tt></p></li> 
+            <li>Note: Value expressions relies on setter/getter methods of corresponding bean to access (private) attributes</li>
+            <li>Method expressions refer to methods (to be invoked/executed):
+                <p style="text-indent: 20px"><tt><b>\#{customer.method}</b></tt><br/></p>
+                <p style="text-indent: 20px"><tt><b>\#{customer.method(param)}</b></tt></p></li>
+        </ul>
+    </ui:define>
+
+</ui:composition>
+
