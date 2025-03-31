@@ -1,0 +1,24 @@
+<ui:composition template="/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="content">
+        <h2>Job Details</h2>
+
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Title:"/>
+            <h:outputText value="#{browseJobsBean.selectedJob.title}"/>
+
+            <h:outputLabel value="Description:"/>
+            <h:outputText value="#{browseJobsBean.selectedJob.description}"/>
+
+            <h:outputLabel value="Payment Offer:"/>
+            <h:outputText value="#{browseJobsBean.selectedJob.paymentOffer}"/>
+        </h:panelGrid>
+
+        <h:form>
+            <h:commandButton value="Submit Offer" action="#{browseJobsBean.offerForJob}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

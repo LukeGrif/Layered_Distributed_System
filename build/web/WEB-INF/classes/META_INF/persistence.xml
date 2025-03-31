@@ -5,12 +5,12 @@
                                  https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
   
-    <persistence-unit name="MarketPlacePU" transaction-type="JTA">
-        <jta-data-source>jdbc/marketplaceDS</jta-data-source>
+    <persistence-unit name="MarketPlaceDS" transaction-type="JTA">
+        <jta-data-source>jdbc/MarketPlaceDS</jta-data-source>
 
         <properties>
             <!-- Temporarily set to 'none' to avoid DB issues during initial testing -->
-            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>

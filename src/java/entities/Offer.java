@@ -17,6 +17,38 @@ public class Offer implements Serializable {
     @ManyToOne
     private Freelancer freelancer;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Freelancer getFreelancer() {
+        return freelancer;
+    }
+
+    public void setFreelancer(Freelancer freelancer) {
+        this.freelancer = freelancer;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public LocalDateTime getOfferedAt() {
+        return offeredAt;
+    }
+
+    public void setOfferedAt(LocalDateTime offeredAt) {
+        this.offeredAt = offeredAt;
+    }
+
     @ManyToOne
     private Job job;
 

@@ -1,7 +1,11 @@
 package beans;
 
+import entities.User;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import services.UserService;
+
 import java.io.Serializable;
 
 @Named
@@ -11,12 +15,17 @@ public class LoginBean implements Serializable {
     private String username;
     private String password;
     private String role;
+    private User loggedInUser;
 
-    // Injected or simulated authentication logic will go here
+    @Inject
+    private UserService userService;
 
     public String login() {
-        // TEMP login logic – you will replace this with DB validation later
-        if ("testuser".equals(username) && "testpass".equals(password)) {
+        User user = userService.login(username, password, role);
+
+        if (user != null) {
+            loggedInUser = user;
+
             switch (role) {
                 case "freelancer":
                     return "freelancerHome.xhtml?faces-redirect=true";
@@ -27,12 +36,23 @@ public class LoginBean implements Serializable {
             }
         }
 
-        // Invalid login
-        return null;
+        return null; // login failed
+    }
+
+    public String logout() {
+        loggedInUser = null;
+        username = null;
+        password = null;
+        role = null;
+        return "login.xhtml?faces-redirect=true";
+    }
+
+    // ✅ Accessor for other beans like JobBean
+    public User getLoggedInUser() {
+        return loggedInUser;
     }
 
     // Getters and setters
-
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
@@ -42,3 +62,4 @@ public class LoginBean implements Serializable {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 }
+
