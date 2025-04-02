@@ -16,14 +16,14 @@ public class StartupDataBean {
 
     @PostConstruct
     public void init() {
-        System.out.println("🔥 StartupDataBean initializing...");
+        System.out.println("StartupDataBean initializing...");
 
         try {
             Long count = em.createQuery("SELECT COUNT(u) FROM User u", Long.class).getSingleResult();
             System.out.println("🔍 Found " + count + " users.");
 
             if (count == 0) {
-                System.out.println("✨ Creating test users...");
+                System.out.println("Creating test users...");
 
                 Provider provider = new Provider();
                 provider.setUsername("provider1");
@@ -41,7 +41,7 @@ public class StartupDataBean {
                 em.persist(freelancer);
             }
         } catch (Exception e) {
-            System.out.println("❌ StartupDataBean error: " + e.getMessage());
+            System.out.println("StartupDataBean error: " + e.getMessage());
             e.printStackTrace();
         }
     }

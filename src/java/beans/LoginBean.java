@@ -21,23 +21,18 @@ public class LoginBean implements Serializable {
     private UserService userService;
 
     public String login() {
-        User user = userService.login(username, password, role);
-
-        if (user != null) {
-            loggedInUser = user;
-
-            switch (role) {
-                case "freelancer":
-                    return "freelancerHome.xhtml?faces-redirect=true";
-                case "provider":
-                    return "providerHome.xhtml?faces-redirect=true";
-                case "admin":
-                    return "adminHome.xhtml?faces-redirect=true";
-            }
+        switch (role) {
+            case "freelancer":
+                return "freelancerHome.xhtml?faces-redirect=true";
+            case "provider":
+                return "providerHome.xhtml?faces-redirect=true";
+            case "admin":
+                return "adminHome.xhtml?faces-redirect=true";
+            default:
+                return null;
         }
+}
 
-        return null; // login failed
-    }
 
     public String logout() {
         loggedInUser = null;

@@ -11,6 +11,31 @@
             <h2>Login</h2>
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="username" value="Username:" />
+                <h:inputText id="username" value="#{loginBean.username}" required="false"/>
+
+                <h:outputLabel for="password" value="Password:" />
+                <h:inputSecret id="password" value="#{loginBean.password}" required="false"/>
+                
+                <h:outputLabel value="Role:" />
+                <h:selectOneMenu value="#{loginBean.role}">
+                    <f:selectItem itemLabel="Select Role" itemValue="" />
+                    <f:selectItem itemLabel="Provider" itemValue="provider" />
+                    <f:selectItem itemLabel="Freelancer" itemValue="freelancer" />
+                    <f:selectItem itemLabel="Admin" itemValue="admin" />
+                </h:selectOneMenu>
+            </h:panelGrid>
+
+            <br/>
+            <h:commandButton value="Login" action="#{loginBean.login}" />
+            <h:messages globalOnly="true"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</html>
+<!-- 
+<h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="username" value="Username:" />
                 <h:inputText id="username" value="#{loginBean.username}" required="true"/>
 
                 <h:outputLabel for="password" value="Password:" />
@@ -23,13 +48,4 @@
                     <f:selectItem itemValue="admin" itemLabel="Administrator"/>
                 </h:selectOneMenu>
             </h:panelGrid>
-
-            <br/>
-            <h:commandButton value="Login" action="#{loginBean.login}" />
-            <h:messages globalOnly="true"/>
-        </h:form>
-    </ui:define>
-
-</ui:composition>
-</html>
-
+-->

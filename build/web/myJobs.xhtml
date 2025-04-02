@@ -2,11 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-<ui:composition template="/templates/template.xhtml">
+<ui:composition template="/templates/freelancerTemplate.xhtml">
 
     <ui:define name="content">
         <h:form>
-            <h2>Post a New Job</h2>
+            <h2>My Jobs</h2>
+        </h:form>
+    </ui:define>
+            
+</ui:composition>
+</html>
+<!--
+<h2>Post a New Job</h2>
 
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel value="Title:" />
@@ -25,8 +32,4 @@
             <br/>
             <h:commandButton value="Post Job" action="#{jobBean.postJob}" />
             <h:messages globalOnly="true"/>
-        </h:form>
-    </ui:define>
-
-</ui:composition>
-</html>
+-->
