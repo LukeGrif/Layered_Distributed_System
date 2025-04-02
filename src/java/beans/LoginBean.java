@@ -22,12 +22,12 @@ public class LoginBean implements Serializable {
 
     public String login() {
         switch (role) {
-            case "freelancer":
-                return "freelancerHome.xhtml?faces-redirect=true";
             case "provider":
-                return "providerHome.xhtml?faces-redirect=true";
+                return "/provider/providerHome.xhtml?faces-redirect=true";
+            case "freelancer":
+                return "/freelancer/freelancerHome.xhtml?faces-redirect=true";
             case "admin":
-                return "adminHome.xhtml?faces-redirect=true";
+                return "/admin/adminHome.xhtml?faces-redirect=true";
             default:
                 return null;
         }
