@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="jakarta.faces.core">
+<ui:composition template="/templates/adminTemplate.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <h3>Register Freelancer</h3>
+            <h:outputLabel value="Name:" for="freelancerName" />
+            <h:inputText id="freelancerName" value="#{adminBean.freelancer.name}" required="true" />
+            <h:outputLabel value="Username" for="freelancerUsername" />
+            <h:inputText id="freelancerUsername" value="#{adminBean.freelancer.username}" required="true" />
+            <h:outputLabel value="Password:" for="freelancerPassword" />
+            <h:inputText id="freelancerPassword" value="#{adminBean.freelancer.password}" required="true" />
+
+            <h:outputLabel value="Skills (comma separated):" for="freelancerSkills" />
+            <h:inputText id="freelancerSkills" value="#{adminBean.freelancer.skills}" />
+
+            <h:outputLabel value="Profile Message:" for="freelancerMsg" />
+            <h:inputTextarea id="freelancerMsg" value="#{adminBean.freelancer.message}" rows="5" cols="40" />
+
+            <h:commandButton value="Register Freelancer" action="#{adminBean.registerFreelancer}" />
+        </h:form>
+        
+        <h:form>
+            <h3>Remove Freelancer</h3>
+            <h:outputLabel value="Freelancer ID:" for="freelancerIdRemove" />
+            <h:inputText id="freelancerIdRemove" value="#{adminBean.freelancerIdToRemove}" required="true" />
+
+            <h:commandButton value="Remove Freelancer" action="#{adminBean.removeFreelancer}" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+</html>
+
