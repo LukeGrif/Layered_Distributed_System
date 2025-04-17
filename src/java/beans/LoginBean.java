@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
+    
 
     private String username;
     private String password;
@@ -22,8 +23,24 @@ public class LoginBean implements Serializable {
 
     @Inject
     private UserService userService;
-
+    
     public String login() {
+        
+    BaseUser user = userService.findUserByUsernameAndPassword(username, password);
+
+//    if (user != null) {
+//        loggedInUser = user;
+//        if (user instanceof Admin) {
+//            return "/admin/adminHome.xhtml?faces-redirect=true";
+//        } else if (user instanceof Provider) {
+//            return "/provider/providerHome.xhtml?faces-redirect=true";
+//        } else if (user instanceof Freelancer) {
+//            return "/freelancer/freelancerHome.xhtml?faces-redirect=true";
+//        }
+//    }
+//    return null;
+//    }
+          
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             errorMessage = "Username and password must be filled.";
             return null;
@@ -47,7 +64,6 @@ public class LoginBean implements Serializable {
         errorMessage = "Unknown user role.";
         return null;
     }
-
     public String logout() {
         loggedInUser = null;
         username = null;

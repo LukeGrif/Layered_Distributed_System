@@ -10,7 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
-@Startup
+//@Startup
 @Singleton
 public class UserSeederBean {
 
