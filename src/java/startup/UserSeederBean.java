@@ -29,7 +29,7 @@ public class UserSeederBean {
             em.createQuery("SELECT u FROM BaseUser u WHERE u.username = :username")
               .setParameter("username", username)
               .getSingleResult();
-            System.out.println("✔️ User " + username + " already exists.");
+            System.out.println(" User " + username + " already exists.");
         } catch (NoResultException e) {
             if (clazz == Admin.class) {
                 Admin a = new Admin();
@@ -53,7 +53,7 @@ public class UserSeederBean {
                 f.setPaymentBalance(0.0);
                 em.persist(f);
             }
-            System.out.println("✅ Created test user: " + username);
+            System.out.println("Created test user: " + username);
         }
     }
 }

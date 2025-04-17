@@ -4,7 +4,7 @@
     <jta-data-source>jdbc/MarketPlaceDS</jta-data-source>
     <properties>
       <!-- Temporarily set to 'none' to avoid DB issues during initial testing -->
-      <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
