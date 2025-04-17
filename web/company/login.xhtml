@@ -4,48 +4,24 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="jakarta.faces.core">
-<ui:composition template="../templates/newTemplate.xhtml">
+    <ui:composition template="../templates/newTemplate.xhtml">
 
-    <ui:define name="content">
-        <h:form>
-            <h2>Login</h2>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="username" value="Username:" />
-                <h:inputText id="username" value="#{loginBean.username}" required="false"/>
+        <ui:define name="content">
+            <h:form>
+                <h2>Login</h2>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Username:" />
+                    <h:inputText id="username" value="#{loginBean.username}" required="true"/>
 
-                <h:outputLabel for="password" value="Password:" />
-                <h:inputSecret id="password" value="#{loginBean.password}" required="false"/>
-                
-                <h:outputLabel value="Role:" />
-                <h:selectOneMenu value="#{loginBean.role}">
-                    <f:selectItem itemLabel="Select Role" itemValue="" />
-                    <f:selectItem itemLabel="Provider" itemValue="provider" />
-                    <f:selectItem itemLabel="Freelancer" itemValue="freelancer" />
-                    <f:selectItem itemLabel="Admin" itemValue="admin" />
-                </h:selectOneMenu>
-            </h:panelGrid>
+                    <h:outputLabel for="password" value="Password:" />
+                    <h:inputSecret id="password" value="#{loginBean.password}" required="true"/>
+                </h:panelGrid>
 
-            <br/>
-            <h:commandButton value="Login" action="#{loginBean.login}" />
-            <h:messages globalOnly="true"/>
-        </h:form>
-    </ui:define>
+                <br/>
+                <h:commandButton value="Login" action="#{loginBean.login}" />
+                <h:outputText value="#{loginBean.errorMessage}" style="color:red;" rendered="#{not empty loginBean.errorMessage}" />
+            </h:form>
+        </ui:define>
 
-</ui:composition>
+    </ui:composition>
 </html>
-<!-- 
-<h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel for="username" value="Username:" />
-                <h:inputText id="username" value="#{loginBean.username}" required="true"/>
-
-                <h:outputLabel for="password" value="Password:" />
-                <h:inputSecret id="password" value="#{loginBean.password}" required="true"/>
-
-                <h:outputLabel for="role" value="Role:" />
-                <h:selectOneMenu id="role" value="#{loginBean.role}">
-                    <f:selectItem itemValue="provider" itemLabel="Provider"/>
-                    <f:selectItem itemValue="freelancer" itemLabel="Freelancer"/>
-                    <f:selectItem itemValue="admin" itemLabel="Administrator"/>
-                </h:selectOneMenu>
-            </h:panelGrid>
--->

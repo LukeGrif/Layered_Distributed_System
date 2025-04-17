@@ -1,6 +1,9 @@
 package beans;
 
 import entities.BaseUser;
+import entities.Freelancer;
+import entities.Provider;
+import entities.Admin;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -14,35 +17,45 @@ public class LoginBean implements Serializable {
 
     private String username;
     private String password;
-    private String role;
     private BaseUser loggedInUser;
+    private String errorMessage;
 
     @Inject
     private UserService userService;
 
     public String login() {
-        switch (role) {
-            case "provider":
-                return "/provider/providerHome.xhtml?faces-redirect=true";
-            case "freelancer":
-                return "/freelancer/freelancerHome.xhtml?faces-redirect=true";
-            case "admin":
-                return "/admin/adminHome.xhtml?faces-redirect=true";
-            default:
-                return null;
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+            errorMessage = "Username and password must be filled.";
+            return null;
         }
-}
 
+        loggedInUser = userService.findUserByUsernameAndPassword(username, password);
+
+        if (loggedInUser == null) {
+            errorMessage = "Invalid username or password.";
+            return null;
+        }
+
+        if (loggedInUser instanceof Freelancer) {
+            return "/freelancer/freelancerHome.xhtml?faces-redirect=true";
+        } else if (loggedInUser instanceof Provider) {
+            return "/provider/providerHome.xhtml?faces-redirect=true";
+        } else if (loggedInUser instanceof Admin) {
+            return "/admin/adminHome.xhtml?faces-redirect=true";
+        }
+
+        errorMessage = "Unknown user role.";
+        return null;
+    }
 
     public String logout() {
         loggedInUser = null;
         username = null;
         password = null;
-        role = null;
+        errorMessage = null;
         return "login.xhtml?faces-redirect=true";
     }
 
-    // ✅ Accessor for other beans like JobBean
     public BaseUser getLoggedInUser() {
         return loggedInUser;
     }
@@ -54,7 +67,6 @@ public class LoginBean implements Serializable {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public String getErrorMessage() { return errorMessage; }
+    public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
 }
-
