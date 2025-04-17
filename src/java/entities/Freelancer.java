@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("freelancer")
-public class Freelancer extends User {
+public class Freelancer extends BaseUser {
     private String skills;
     @Column(length = 500)
     private String message;

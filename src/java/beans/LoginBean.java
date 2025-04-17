@@ -1,6 +1,6 @@
 package beans;
 
-import entities.User;
+import entities.BaseUser;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -15,7 +15,7 @@ public class LoginBean implements Serializable {
     private String username;
     private String password;
     private String role;
-    private User loggedInUser;
+    private BaseUser loggedInUser;
 
     @Inject
     private UserService userService;
@@ -43,7 +43,7 @@ public class LoginBean implements Serializable {
     }
 
     // ✅ Accessor for other beans like JobBean
-    public User getLoggedInUser() {
+    public BaseUser getLoggedInUser() {
         return loggedInUser;
     }
 
