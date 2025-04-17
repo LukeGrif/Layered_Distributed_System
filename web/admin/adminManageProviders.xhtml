@@ -10,6 +10,11 @@
             <h3>Register Provider</h3>
             <h:outputLabel value="Name:" for="providerName" />
             <h:inputText id="providerName" value="#{adminBean.provider.name}" required="true" />
+            <h:outputLabel value="Username:" for="providerUsername" />
+            <h:inputText id="providerUsername" value="#{adminBean.provider.username}" required="true" />
+            <h:outputLabel value="Password" for="providerPassword" />
+            <h:inputText id="providerPassword" value="#{adminBean.provider.password}" required="true" />
+            
 
             <h:commandButton value="Register Provider" action="#{adminBean.registerProvider}" />
         </h:form>

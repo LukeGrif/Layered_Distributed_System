@@ -12,7 +12,7 @@ public class UserService {
 
     public BaseUser login(String username, String password, String role) {
         try {
-            TypedQuery<BaseUser> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password",
+            TypedQuery<BaseUser> query = em.createQuery("SELECT u FROM BaseUser u WHERE u.username = :username AND u.password = :password",
                 BaseUser.class
             );
             query.setParameter("username", username);
@@ -38,7 +38,7 @@ public class UserService {
 
     public BaseUser findByUsername(String username) {
         try {
-            return em.createQuery("SELECT u FROM User u WHERE u.username = :username", BaseUser.class)
+            return em.createQuery("SELECT u FROM BaseUser u WHERE u.username = :username", BaseUser.class)
                      .setParameter("username", username)
                      .getSingleResult();
         } catch (NoResultException e) {

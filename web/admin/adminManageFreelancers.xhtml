@@ -10,6 +10,10 @@
             <h3>Register Freelancer</h3>
             <h:outputLabel value="Name:" for="freelancerName" />
             <h:inputText id="freelancerName" value="#{adminBean.freelancer.name}" required="true" />
+            <h:outputLabel value="Username" for="freelancerUsername" />
+            <h:inputText id="freelancerUsername" value="#{adminBean.freelancer.username}" required="true" />
+            <h:outputLabel value="Password:" for="freelancerPassword" />
+            <h:inputText id="freelancerPassword" value="#{adminBean.freelancer.password}" required="true" />
 
             <h:outputLabel value="Skills (comma separated):" for="freelancerSkills" />
             <h:inputText id="freelancerSkills" value="#{adminBean.freelancer.skills}" />

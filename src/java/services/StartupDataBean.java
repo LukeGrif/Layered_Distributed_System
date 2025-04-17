@@ -19,7 +19,7 @@ public class StartupDataBean {
         System.out.println("StartupDataBean initializing...");
 
         try {
-            Long count = em.createQuery("SELECT COUNT(u) FROM User u", Long.class).getSingleResult();
+            Long count = em.createQuery("SELECT COUNT(u) FROM BaseUser u", Long.class).getSingleResult();
             System.out.println("🔍 Found " + count + " users.");
 
             if (count == 0) {
