@@ -1,28 +1,73 @@
-<ui:composition template="/templates/providerTemplate.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+    template="/templates/providerTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="content">
-        <h2>Jobs</h2>
+  <ui:define name="content">
+    <h2>Create Job Offer</h2>
 
-        <h:form>
-            <h:commandButton value="Submit Offer"/>
-        </h:form>
-    </ui:define>
+    <h:form id="jobForm" style="margin-left:20px;">
+      <div style="overflow:auto; max-height:600px;">
+
+        <div style="margin-bottom:1.5em;">
+          <h:outputLabel for="title"
+                         value="Title:"
+                         style="font-weight:bold;" /><br/>
+          <h:inputText id="title"
+                       value="#{jobBean.title}"
+                       size="40"
+                       required="true"
+                       label="Title" /><br/>
+          <h:message for="title" />
+        </div>
+
+        <div style="margin-bottom:1.5em;">
+          <h:outputLabel for="keywords"
+                         value="Keywords:"
+                         style="font-weight:bold;" /><br/>
+          <h:inputText id="keywords"
+                       value="#{jobBean.keyword}"
+                       size="40"
+                       required="true"
+                       label="Keywords" /><br/>
+          <h:message for="keywords" />
+        </div>
+
+        <div style="margin-bottom:1.5em;">
+          <h:outputLabel for="description"
+                         value="Job Description:"
+                         style="font-weight:bold; vertical-align:top;" /><br/>
+          <h:inputTextarea id="description"
+                           value="#{jobBean.description}"
+                           rows="5"
+                           cols="60"
+                           required="true"
+                           label="Description" /><br/>
+          <h:message for="description" />
+        </div>
+
+        <div style="margin-bottom:1.5em;">
+          <h:outputLabel for="payment"
+                         value="Payment (€):"
+                         style="font-weight:bold;" /><br/>
+          <h:inputText id="payment"
+                       value="#{jobBean.paymentOffer}"
+                       size="10"
+                       required="true"
+                       label="Payment Offer">
+            <f:validateDoubleRange minimum="0" />
+          </h:inputText><br/>
+          <h:message for="payment" />
+        </div>
+
+      </div>
+
+      <h:commandButton value="Submit Offer"
+                       action="#{jobBean.postJob}" />
+    </h:form>
+  </ui:define>
+
 </ui:composition>
-<!--
-<h:panelGrid columns="2">
-            <h:outputLabel value="Title:"/>
-            <h:outputText value="#{browseJobsBean.selectedJob.title}"/>
-
-            <h:outputLabel value="Description:"/>
-            <h:outputText value="#{browseJobsBean.selectedJob.description}"/>
-
-            <h:outputLabel value="Payment Offer:"/>
-            <h:outputText value="#{browseJobsBean.selectedJob.paymentOffer}"/>
-        </h:panelGrid>
-
-        <h:form>
-            <h:commandButton value="Submit Offer" action="#{browseJobsBean.offerForJob}"/> 
--->
