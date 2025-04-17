@@ -41,7 +41,7 @@ public class JobService {
     public void assignFreelancerToJob(Job job, Freelancer freelancer) {
         Job j = em.find(Job.class, job.getJobId());
         j.setAssignedFreelancer(freelancer);
-        j.setStatus(2);
+        j.setStatus(2); // 2: in review
         em.merge(j);
     }
 

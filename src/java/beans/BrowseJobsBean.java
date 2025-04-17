@@ -49,7 +49,7 @@ public class BrowseJobsBean implements Serializable {
     
     public List<Job> getCurrentJobsForFreelancer() {
         Freelancer me = (Freelancer) loginBean.getLoggedInUser();
-        return jobService.getJobsForFreelancer(me);
+        return jobService.getCurrentJobsForFreelancer(me);
     }
 
     // Getters and Setters
