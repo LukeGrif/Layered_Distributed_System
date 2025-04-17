@@ -2,14 +2,18 @@ package services;
 
 import entities.*;
 import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import jakarta.persistence.*;
 import java.util.List;
 
 @Stateless
 public class JobService {
-
+    
+    @Inject
+    private JobService jobService;
     @PersistenceContext(unitName = "MarketPlaceDS")
     private EntityManager em;
+
 
     public void createJob(String title, String keyword, String description, double paymentOffer, Provider provider) {
         Job job = new Job();
@@ -17,7 +21,7 @@ public class JobService {
         job.setKeyword(keyword);
         job.setDescription(description);
         job.setPaymentOffer(paymentOffer);
-        job.setStatus("open");
+        job.setStatus(1);
         job.setProvider(provider);
 
         em.persist(job);
@@ -30,30 +34,30 @@ public class JobService {
     }
 
     public List<Job> getOpenJobs() {
-        return em.createQuery("SELECT j FROM Job j WHERE j.status = 'open'", Job.class)
+        return em.createQuery("SELECT j FROM Job j WHERE j.status = 1", Job.class)
                  .getResultList();
     }
 
     public void assignFreelancerToJob(Job job, Freelancer freelancer) {
         Job j = em.find(Job.class, job.getJobId());
         j.setAssignedFreelancer(freelancer);
-        j.setStatus("closed");
+        j.setStatus(2);
         em.merge(j);
     }
 
-    public void markJobAsCompleted(Job job) {
-        Job j = em.find(Job.class, job.getJobId());
-        j.setStatus("completed");
-
-        // Credit the freelancer
-        Freelancer f = j.getAssignedFreelancer();
-        if (f != null) {
-            f.setPaymentBalance(f.getPaymentBalance() + j.getPaymentOffer());
-            em.merge(f);
-        }
-
-        em.merge(j);
-    }
+//    public void markJobAsCompleted(Job job) {
+//        Job j = em.find(Job.class, job.getJobId());
+//        j.setStatus(4);
+//
+//        // Credit the freelancer
+//        Freelancer f = j.getAssignedFreelancer();
+//        if (f != null) {
+//            f.setPaymentBalance(f.getPaymentBalance() + j.getPaymentOffer());
+//            em.merge(f);
+//        }
+//
+//        em.merge(j);
+//    }
 
     public Job findById(Long id) {
         return em.find(Job.class, id);
@@ -62,4 +66,25 @@ public class JobService {
     public void saveOffer(Offer offer) {
     em.persist(offer);
     }
+    
+    public void updateJob(Job job) {
+    em.merge(job);
+    }
+    
+    // in JobService.java
+    public List<Job> getJobsForFreelancer(Freelancer f) {
+        return em.createQuery(
+            "SELECT j FROM Job j WHERE j.assignedFreelancer = :f", Job.class)
+          .setParameter("f", f)
+          .getResultList();
+    }
+    
+    public List<Job> getCurrentJobsForFreelancer(BaseUser freelancer) {
+        return em.createQuery(
+          "SELECT j FROM Job j "
+            + "WHERE j.assignedFreelancer = :f "
+            + "  AND j.status IN (2,3,4)", Job.class)
+          .setParameter("f", freelancer)
+          .getResultList();
+  }
 }

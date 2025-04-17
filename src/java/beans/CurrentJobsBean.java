@@ -1,7 +1,7 @@
 package beans;
 
 import entities.Job;
-import entities.User;
+import entities.BaseUser;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -15,7 +15,7 @@ public class CurrentJobsBean {
   @Inject private JobService jobService;
 
   public List<Job> getCurrentJobs() {
-    User me = (User) loginBean.getLoggedInUser();
+    BaseUser me = (BaseUser) loginBean.getLoggedInUser();
     return jobService.getCurrentJobsForFreelancer(me);
   }
 

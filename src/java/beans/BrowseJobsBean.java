@@ -1,6 +1,7 @@
 package beans;
 
 import entities.*;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -10,26 +11,27 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Named
-@SessionScoped
+@Named("browseJobsBean")
+@RequestScoped  //@SessionScoped
 public class BrowseJobsBean implements Serializable {
-
-    private Job selectedJob;
+    private static final long serialVersionUID = 1L;
 
     @Inject
     private JobService jobService;
-
     @Inject
     private LoginBean loginBean;
+    
+    private Job selectedJob;
 
     public List<Job> getOpenJobs() {
         return jobService.getOpenJobs();
     }
 
     public String selectJob(Job job) {
-        this.selectedJob = job;
-        return "jobDetails.xhtml?faces-redirect=true";
-    }
+        Freelancer me = (Freelancer) loginBean.getLoggedInUser();
+        jobService.assignFreelancerToJob(job, me);
+        return "freelancerCurrentJobs.xhtml?faces-redirect=true";
+      }
 
     public String offerForJob() {
         Freelancer freelancer = (Freelancer) loginBean.getLoggedInUser();
@@ -43,6 +45,11 @@ public class BrowseJobsBean implements Serializable {
         jobService.saveOffer(offer);
 
         return "freelancerHome.xhtml?faces-redirect=true";
+    }
+    
+    public List<Job> getCurrentJobsForFreelancer() {
+        Freelancer me = (Freelancer) loginBean.getLoggedInUser();
+        return jobService.getJobsForFreelancer(me);
     }
 
     // Getters and Setters
