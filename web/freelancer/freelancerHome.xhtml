@@ -4,15 +4,24 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="jakarta.faces.core">
-<ui:composition template="/templates/freelancerTemplate.xhtml">
+    <ui:composition template="/templates/freelancerTemplate.xhtml">
 
-    <ui:define name="content">
-        <h:form>
-            <h2>Welcome Freelancer</h2>
-            
-        </h:form>
-    </ui:define>
+        <ui:define name="content">
+            <h:form>
+                <h2>Welcome Freelancer</h2>
+                <p>You can now:</p>
+                <ul>
+                    <li>Browse and search available job listings</li>
+                    <li>Submit or revoke offers to undertake jobs</li>
+                    <li>View and manage your accepted jobs</li>
+                    <li>View your profile</li>
+                    <li>Check your virtual payment balance</li>
+                </ul>
+                <p>Use the sidebar or top menu to begin exploring jobs!</p>
 
-</ui:composition>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
 </html>
 
