@@ -52,15 +52,10 @@
 
           <h:column>
             <f:facet name="header">Action</f:facet>
-            <!-- Revoke when status == 2 -->
-            <h:commandButton value="Revoke"
-                             action="#{currentJobsBean.revoke(job)}"
-                             rendered="#{job.status == 2}" />
-
             <!-- Complete when status == 3 -->
             <h:commandButton value="Complete"
                              action="#{currentJobsBean.complete(job)}"
-                             rendered="#{job.status == 3}" />
+                             rendered="#{job.status == 2}" />
           </h:column>
 
         </h:dataTable>
@@ -100,7 +95,7 @@
             <f:facet name="header">Action</f:facet>
             <!-- Revoke offer while application still under review -->
             <h:commandButton value="Revoke"
-                             action="#{currentJobsBean.revoke(job)}"
+                             action="#{currentJobsBean.revokeOffer(offer)}"
                              rendered="#{offer.job.status == 1}" />
             </h:column>
 

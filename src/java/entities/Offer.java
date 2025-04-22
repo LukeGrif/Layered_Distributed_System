@@ -6,9 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import jakarta.persistence.Transient;
+
 
 @Entity
 public class Offer implements Serializable {
@@ -43,13 +41,6 @@ public class Offer implements Serializable {
         this.job = job;
     }
 
-//    public LocalDateTime getOfferedAt() {
-//        return offeredAt;
-//    }
-//
-//    public void setOfferedAt(LocalDateTime offeredAt) {
-//        this.offeredAt = offeredAt;
-//    }
 
     @ManyToOne
     private Job job;

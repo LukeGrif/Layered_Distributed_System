@@ -59,12 +59,6 @@ public class BrowseJobsBean implements Serializable {
         this.selectedJob = selectedJob; 
     }
     
-     public String revokeJob(Job job) {
-    // Remove freelancers application to a job
-    jobService.revokeJob(job);
-    // refresh the page
-    return "freelancerCurrentJobs.xhtml?faces-redirect=true";
-  }
 
   public String completeJob(Job job) {
     // mark as “completed”
