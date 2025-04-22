@@ -85,7 +85,7 @@ public class JobService {
 
   public void completeJob(Job job) {
     Job managed = em.find(Job.class, job.getJobId());
-    managed.setStatus(4);
+    managed.setStatus(3);
   }
   
   public List<Offer> getOffersForFreelancer(Freelancer f) {

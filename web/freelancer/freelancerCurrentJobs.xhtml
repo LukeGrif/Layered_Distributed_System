@@ -52,7 +52,7 @@
 
           <h:column>
             <f:facet name="header">Action</f:facet>
-            <!-- Complete when status == 3 -->
+            <!-- Complete button appears when application is assigned to a freelancer -->
             <h:commandButton value="Complete"
                              action="#{currentJobsBean.complete(job)}"
                              rendered="#{job.status == 2}" />
@@ -65,7 +65,7 @@
     
     <h2>My Applications</h2>
         <h:form>
-          <h:dataTable value="#{currentJobsBean.myApplications}" var="offer"
+          <h:dataTable value="#{currentJobsBean.openApplications}" var="offer"
                        border="1"
                        columnClasses="titleCol,providerCol,paymentCol,statusCol,actionCol">
             <h:column>

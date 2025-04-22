@@ -10,6 +10,7 @@ import jakarta.inject.Named;
 import services.JobService;
 import services.OfferService;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Named("currentJobsBean")
 @RequestScoped
@@ -27,6 +28,13 @@ public class CurrentJobsBean {
         Freelancer me = (Freelancer) loginBean.getLoggedInUser();
         return jobService.getOffersForFreelancer(me);
       }
+    
+    public List<Offer> getOpenApplications() {
+    return getMyApplications()
+      .stream()
+      .filter(o -> o.getJob().getStatus() == 1)
+      .collect(Collectors.toList());
+  }
 
     public String revokeOffer(Offer offer){
         offerService.revokeOffer(offer);
