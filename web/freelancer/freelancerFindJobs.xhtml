@@ -20,6 +20,16 @@
                                  action="#{findJobsBean.search}"/>
             </h:panelGrid>
             
+            <h:panelGrid columns="3" style="margin-bottom:2em;">
+                <h:outputLabel for="searchIdBox" value="Job ID:"/>
+                <h:inputText id="searchIdBox"
+                             value="#{findJobsBean.searchJobId}"
+                             style="width:100px"/>
+                               
+                <h:commandButton value="Search by ID"
+                                 action="#{findJobsBean.searchById}"/>
+            </h:panelGrid>
+            
             <div style="text-align: center; margin-top: 20px;">
            
             <h:dataTable value="#{findJobsBean.jobs}" var="job" border="1"

@@ -17,6 +17,7 @@ public class FindJobsBean {
 
   /** bound to search box */
   private String searchKeyword;
+  private Long searchJobId;
   private List<Job> jobs;
   
 @PostConstruct
@@ -29,6 +30,17 @@ public void init() {
   public void search() {
     jobs = jobService.findByKeyword(searchKeyword);
   }
+  
+  public void searchById() {
+    if (searchJobId == null) {
+      jobs = jobService.getOpenJobs();
+    } else {
+      Job j = jobService.findById(searchJobId);
+      jobs = (j != null)
+           ? Collections.singletonList(j)
+           : Collections.emptyList();
+    }
+  }
 
   // getters & setters
   public String getSearchKeyword() { 
@@ -39,8 +51,17 @@ public void init() {
       this.searchKeyword = searchKeyword; 
   }
   
+  public Long getSearchJobId() { 
+      return searchJobId; 
+  }
+  
+  public void setSearchJobId(Long id) {
+      this.searchJobId = id; 
+  }
+  
   public List<Job> getJobs() {
       return jobs; 
   }
+ 
   
 }

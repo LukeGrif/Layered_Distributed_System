@@ -6,7 +6,6 @@ import jakarta.inject.Inject;
 import jakarta.persistence.*;
 import java.util.List;
 
-
 @Stateless
 public class JobService {
     
@@ -24,7 +23,6 @@ public class JobService {
         job.setPaymentOffer(paymentOffer);
         job.setStatus(1);
         job.setProvider(provider);
-
         em.persist(job);
     }
 
@@ -46,10 +44,6 @@ public class JobService {
         em.merge(j);
     }
 
-    public Job findById(Long id) {
-        return em.find(Job.class, id);
-    }
-    
     public void saveOffer(Offer offer) {
     em.persist(offer);
     }
@@ -73,20 +67,20 @@ public class JobService {
             + "  AND j.status IN (2,3,4)", Job.class)
           .setParameter("f", freelancer)
           .getResultList();
-  }
+    }
    
-    // inside JobService.java
-public double getCompletedEarningsForFreelancer(Long freelancerId) {
-    Double total = em.createQuery(
-        "SELECT COALESCE(SUM(j.paymentOffer),0) " +
-        "FROM Job j " +
-        "WHERE j.assignedFreelancer.id = :fid " +
-        "  AND j.status = 3",       // 3 = completed
-        Double.class)
-      .setParameter("fid", freelancerId)
-      .getSingleResult();
-    return total;
-}
+    
+    public double getCompletedEarningsForFreelancer(Long freelancerId) {
+        Double total = em.createQuery(
+            "SELECT COALESCE(SUM(j.paymentOffer),0) " +
+            "FROM Job j " +
+            "WHERE j.assignedFreelancer.id = :fid " +
+            "  AND j.status = 3",       // 3 = completed
+            Double.class)
+          .setParameter("fid", freelancerId)
+          .getSingleResult();
+        return total;
+    }
 
     public void revokeJob(Job job) {
     Job managed = em.find(Job.class, job.getJobId());
@@ -124,7 +118,16 @@ public double getCompletedEarningsForFreelancer(Long freelancerId) {
         )
         .setParameter("pat", pattern)
         .getResultList();
-}
+    }
+  
+    public Job findById(Long id) {
+        if (id == null) return null;
+        return em.find(Job.class, id);
+  }
+  
+    
+  
+  
   
   
       
