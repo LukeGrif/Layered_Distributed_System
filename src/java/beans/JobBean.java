@@ -35,10 +35,8 @@ public class JobBean implements Serializable {
     }
 
     public List<Job> getProviderJobs() {
-        if (providerJobs == null) {
-            providerJobs = jobService.getJobsByProvider((Provider) loginBean.getLoggedInUser());
-        }
-        return providerJobs;
+        Provider provider = (Provider) loginBean.getLoggedInUser();
+        return jobService.getJobsByProvider(provider);
     }
 
     private void clearForm() {
