@@ -4,15 +4,25 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="jakarta.faces.core">
-<ui:composition template="/templates/adminTemplate.xhtml">
+    <ui:composition template="/templates/adminTemplate.xhtml">
 
-    <ui:define name="content">
-        <h:form>
-            <h2>Admin Profile</h2>
-            
-        </h:form>
-    </ui:define>
+        <ui:define name="content">
+            <h:form>
+                <h2>Admin Profile</h2>
+                <h:outputText value="Name: #{loginBean.loggedInUser.name}" /><br/>
+                <h:outputText value="Username: #{loginBean.loggedInUser.username}" /><br/>
+                <h:outputText value="" /><br/>
+                <h:outputText value="" />
+                <h:outputText value="" /><br/>
+                <h:outputText value="" />
+                <h:outputText value="" /><br/>
+                <h:outputText value="" />
+                <h:outputText value="" /><br/>
+                <h:outputText value="" />
 
-</ui:composition>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
 </html>
 

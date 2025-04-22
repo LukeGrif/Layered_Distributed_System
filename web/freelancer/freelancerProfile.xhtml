@@ -4,15 +4,20 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="jakarta.faces.core">
-<ui:composition template="/templates/freelancerTemplate.xhtml">
+    <ui:composition template="/templates/freelancerTemplate.xhtml">
 
-    <ui:define name="content">
-        <h:form>
-            <h2>Freelancer Profile</h2>
-            
-        </h:form>
-    </ui:define>
+        <ui:define name="content">
+            <h:form>
+                <h2>Freelancer Profile</h2>
+                <h:outputText value="Name: #{loginBean.loggedInUser.name}" /><br/>
+                <h:outputText value="Username: #{loginBean.loggedInUser.username}" /><br/>
+                <h:outputText value="Skills: #{loginBean.loggedInUser.skills}" /><br/>
+                <h:outputText value="Message: #{loginBean.loggedInUser.message}" /><br/>
+                <h:outputText value="Payment Balance: #{loginBean.loggedInUser.paymentBalance} tokens" /><br/>
 
-</ui:composition>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
 </html>
 

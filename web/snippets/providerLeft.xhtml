@@ -1,16 +1,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="jakarta.faces.facelets"
-      xmlns:h="jakarta.faces.html">  
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html">  
     <h:form>
 
         <h:panelGrid columns="1" width="100%">
-            
+
             <h:commandButton value="Create Jobs" action="providerCreateJobs" style="width:90px"/>
             <h:commandButton value="Current Jobs" action="providerCurrentJobs" style="width:90px"/>
             <h:commandButton value="Profile" action="providerProfile" style="width:90px"/>
             <h:commandButton value="Logout" action="home" style="width:90px"/>
-            <h:graphicImage name="images/logo2.png" width="100.60%"/>
-     
+            <h:panelGroup rendered="#{loginBean.loggedInUser != null}">
+                <h:outputText value="Logged In: #{loginBean.loggedInUser.name}" />
+            </h:panelGroup>
+
+
         </h:panelGrid>
     </h:form>
 </ui:composition>
