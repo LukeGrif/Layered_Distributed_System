@@ -2,6 +2,8 @@ package beans;
 
 import entities.Job;
 import entities.BaseUser;
+import entities.Freelancer;
+import entities.Offer;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -17,6 +19,11 @@ public class CurrentJobsBean {
     public List<Job> getCurrentJobs() {
         BaseUser me = (BaseUser) loginBean.getLoggedInUser();
         return jobService.getCurrentJobsForFreelancer(me);
+      }
+    
+    public List<Offer> getMyApplications() {
+        Freelancer me = (Freelancer) loginBean.getLoggedInUser();
+        return jobService.getOffersForFreelancer(me);
       }
 
     public String revoke(Job job) {

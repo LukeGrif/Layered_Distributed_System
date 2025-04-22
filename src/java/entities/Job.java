@@ -121,9 +121,8 @@ public class Job implements Serializable {
     public String getStatusLabel() {
         switch (status) {
             case 1: return "Open";
-            case 2: return "In Review";
-            case 3: return "Assigned";
-            case 4: return "Completed";
+            case 2: return "Assigned";
+            case 3: return "Completed";
             default: return "Unknown";
 }
     }

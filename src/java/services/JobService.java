@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.*;
 import java.util.List;
 
+
 @Stateless
 public class JobService {
     
@@ -44,20 +45,6 @@ public class JobService {
         j.setStatus(2); // 2: in review
         em.merge(j);
     }
-
-//    public void markJobAsCompleted(Job job) {
-//        Job j = em.find(Job.class, job.getJobId());
-//        j.setStatus(4);
-//
-//        // Credit the freelancer
-//        Freelancer f = j.getAssignedFreelancer();
-//        if (f != null) {
-//            f.setPaymentBalance(f.getPaymentBalance() + j.getPaymentOffer());
-//            em.merge(f);
-//        }
-//
-//        em.merge(j);
-//    }
 
     public Job findById(Long id) {
         return em.find(Job.class, id);
@@ -100,5 +87,14 @@ public class JobService {
     Job managed = em.find(Job.class, job.getJobId());
     managed.setStatus(4);
   }
+  
+  public List<Offer> getOffersForFreelancer(Freelancer f) {
+    return em.createQuery(
+        "SELECT o FROM Offer o WHERE o.freelancer = :f",
+        Offer.class
+    )
+    .setParameter("f", f)
+    .getResultList();
+}
       
 }

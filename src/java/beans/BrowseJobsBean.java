@@ -2,17 +2,15 @@ package beans;
 
 import entities.*;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import services.JobService;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 @Named("browseJobsBean")
-@RequestScoped  //@SessionScoped
+@RequestScoped  
 public class BrowseJobsBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -33,18 +31,18 @@ public class BrowseJobsBean implements Serializable {
         return "freelancerCurrentJobs.xhtml?faces-redirect=true";
       }
 
-    public String offerForJob() {
+    public String offerForJob(Job job) {
         Freelancer freelancer = (Freelancer) loginBean.getLoggedInUser();
 
         Offer offer = new Offer();
-        offer.setJob(selectedJob);
+        offer.setJob(job);
         offer.setFreelancer(freelancer);
-        offer.setOfferedAt(LocalDateTime.now());
+        //offer.setOfferedAt(LocalDateTime.now());
 
-        selectedJob.getProvider().getUsername(); // optional for display
+        //job.getProvider().getUsername(); // optional for display
         jobService.saveOffer(offer);
 
-        return "freelancerHome.xhtml?faces-redirect=true";
+        return "freelancerCurrentJobs.xhtml?faces-redirect=true";
     }
     
     public List<Job> getCurrentJobsForFreelancer() {
@@ -53,12 +51,16 @@ public class BrowseJobsBean implements Serializable {
     }
 
     // Getters and Setters
-    public Job getSelectedJob() { return selectedJob; }
-    public void setSelectedJob(Job selectedJob) { this.selectedJob = selectedJob; 
+    public Job getSelectedJob() { 
+        return selectedJob; 
+    
+    }
+    public void setSelectedJob(Job selectedJob) { 
+        this.selectedJob = selectedJob; 
     }
     
      public String revokeJob(Job job) {
-    // set status back to “open” and un-assign freelancer
+    // Remove freelancers application to a job
     jobService.revokeJob(job);
     // refresh the page
     return "freelancerCurrentJobs.xhtml?faces-redirect=true";

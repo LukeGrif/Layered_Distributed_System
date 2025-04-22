@@ -40,7 +40,7 @@
                 <f:facet name="header">Action</f:facet>
                 <!-- Accept button triggers offer action on bean -->
                 <h:commandButton value="Accept"
-                                 action="#{browseJobsBean.selectJob(job)}"
+                                 action="#{browseJobsBean.offerForJob(job)}"
                                  rendered="#{job.status == 1}"/>
               </h:column>
 
