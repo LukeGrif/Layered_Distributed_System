@@ -14,6 +14,10 @@
                 <h:outputText value="Skills: #{loginBean.loggedInUser.skills}" /><br/>
                 <h:outputText value="Message: #{loginBean.loggedInUser.message}" /><br/>
                 <h:outputText value="Payment Balance: #{profileBean.paymentBalance} euros" /><br/>
+                <h:commandButton value="Edit Profile"
+                        action="freelancerEditProfile.xhtml?faces-redirect=true"
+                        immediate="true"/>
+
 
             </h:form>
         </ui:define>

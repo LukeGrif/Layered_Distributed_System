@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+    template="/templates/freelancerTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+  <ui:define name="content">
+    <h2>Edit Your Profile</h2>
+
+    <h:form id="editProfileForm" style="margin-left:20px;">
+      <div style="overflow:auto; max-height:600px;">
+
+        <!-- Name -->
+        <div style="margin-bottom:1.5em;">
+          <h:outputLabel for="name"
+                         value="Name:"
+                         style="font-weight:bold;" /><br/>
+          <h:inputText id="name"
+                       value="#{profileBean.freelancer.name}"
+                       size="40"
+                       required="true"
+                       label="Name" /><br/>
+          <h:message for="name" />
+        </div>
+
+
+        <!-- Skills -->
+        <div style="margin-bottom:1.5em;">
+          <h:outputLabel for="skills"
+                         value="Skills:"
+                         style="font-weight:bold;" /><br/>
+          <h:inputTextarea id="skills"
+                           value="#{profileBean.freelancer.skills}"
+                           rows="3"
+                           cols="40"
+                           label="Skills" /><br/>
+          <h:message for="skills" />
+        </div>
+
+        <!-- Message -->
+        <div style="margin-bottom:1.5em;">
+          <h:outputLabel for="message"
+                         value="Message:"
+                         style="font-weight:bold;" /><br/>
+          <h:inputTextarea id="message"
+                           value="#{profileBean.freelancer.message}"
+                           rows="5"
+                           cols="40"
+                           label="Message" /><br/>
+          <h:message for="message" />
+        </div>
+
+      </div>
+
+      <!-- Update button -->
+      <h:commandButton value="Update"
+                       action="#{profileBean.update}" />
+    </h:form>
+  </ui:define>
+
+</ui:composition>

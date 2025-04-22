@@ -28,18 +28,6 @@ public class LoginBean implements Serializable {
         
     BaseUser user = userService.findUserByUsernameAndPassword(username, password);
 
-//    if (user != null) {
-//        loggedInUser = user;
-//        if (user instanceof Admin) {
-//            return "/admin/adminHome.xhtml?faces-redirect=true";
-//        } else if (user instanceof Provider) {
-//            return "/provider/providerHome.xhtml?faces-redirect=true";
-//        } else if (user instanceof Freelancer) {
-//            return "/freelancer/freelancerHome.xhtml?faces-redirect=true";
-//        }
-//    }
-//    return null;
-//    }
           
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             errorMessage = "Username and password must be filled.";
@@ -75,6 +63,10 @@ public class LoginBean implements Serializable {
     public BaseUser getLoggedInUser() {
         return loggedInUser;
     }
+    
+    public void setLoggedInUser(BaseUser u) {
+        this.loggedInUser = u;
+     }
 
     // Getters and setters
     public String getUsername() { return username; }

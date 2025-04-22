@@ -1,6 +1,7 @@
 package services;
 
 import entities.BaseUser;
+import entities.Freelancer;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.*;
 
@@ -20,4 +21,8 @@ public class UserService {
             return null;
         }
     }
+    
+    public Freelancer updateFreelancer(Freelancer f) {
+    return em.merge(f);
+  }
 }
