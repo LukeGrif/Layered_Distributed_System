@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html 
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    template="/templates/providerTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+  <ui:define name="content">
+    <h2>Job Applications</h2>
+    <h:outputText
+        value="(DEBUG) fetched #{providerApplicationsBean.applications.size()} applications"
+        style="color:red" />
+
+    <h:form id="applicationsForm">
+      <div style="text-align:center; margin-top:20px;">
+        <h:dataTable value="#{providerApplicationsBean.applications}"
+                     var="offer"
+                     border="1"
+                     columnClasses="titleCol,freelancerCol,skillsCol,messageCol,actionCol">
+
+          <!-- Job Title -->
+          <h:column>
+            <f:facet name="header">Job Title</f:facet>
+            <h:outputText value="#{offer.job.title}" />
+          </h:column>
+
+          <!-- Freelancer Name -->
+          <h:column>
+            <f:facet name="header">Freelancer</f:facet>
+            <h:outputText value="#{offer.freelancer.username}" />
+          </h:column>
+
+          <!-- Skills -->
+          <h:column>
+            <f:facet name="header">Skills</f:facet>
+            <h:outputText value="#{offer.freelancer.skills}" />
+          </h:column>
+
+          <!-- Message -->
+          <h:column>
+            <f:facet name="header">Message</f:facet>
+            <h:outputText value="#{offer.freelancer.message}" />
+          </h:column>
+
+          <!-- Accept Button -->
+          <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:commandButton value="Accept"
+                             action="#{providerApplicationsBean.accept(offer)}"
+                             rendered="#{offer.job.status == 1}" />
+          </h:column>
+
+        </h:dataTable>
+      </div>
+    </h:form>
+  </ui:define>
+
+</ui:composition>
