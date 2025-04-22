@@ -54,5 +54,19 @@ public class BrowseJobsBean implements Serializable {
 
     // Getters and Setters
     public Job getSelectedJob() { return selectedJob; }
-    public void setSelectedJob(Job selectedJob) { this.selectedJob = selectedJob; }
+    public void setSelectedJob(Job selectedJob) { this.selectedJob = selectedJob; 
+    }
+    
+     public String revokeJob(Job job) {
+    // set status back to “open” and un-assign freelancer
+    jobService.revokeJob(job);
+    // refresh the page
+    return "freelancerCurrentJobs.xhtml?faces-redirect=true";
+  }
+
+  public String completeJob(Job job) {
+    // mark as “completed”
+    jobService.completeJob(job);
+    return "freelancerCurrentJobs.xhtml?faces-redirect=true";
+  }
 }

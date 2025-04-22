@@ -87,4 +87,18 @@ public class JobService {
           .setParameter("f", freelancer)
           .getResultList();
   }
+    
+    public void revokeJob(Job job) {
+    Job managed = em.find(Job.class, job.getJobId());
+    // un-assign the freelancer and reset to “open”
+    managed.setAssignedFreelancer(null);
+    managed.setStatus(1);
+    // JPA will auto-flush on transaction commit
+  }
+
+  public void completeJob(Job job) {
+    Job managed = em.find(Job.class, job.getJobId());
+    managed.setStatus(4);
+  }
+      
 }
