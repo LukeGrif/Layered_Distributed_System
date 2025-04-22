@@ -1,41 +1,112 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html 
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="jakarta.faces.core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/templates/freelancerTemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
+
   <ui:define name="content">
     <h2>My Current Jobs</h2>
-    <h:dataTable value="#{currentJobsBean.currentJobs}" var="job" border="1">
-      <h:column>
-        <f:facet name="header">Title</f:facet>
-        #{job.title}
-      </h:column>
-      <h:column>
-        <f:facet name="header">Status</f:facet>
-        #{job.statusLabel}
-      </h:column>
-      <h:column>
-        <f:facet name="header">Payment</f:facet>
-        #{job.paymentOffer}
-      </h:column>
-      <h:column>
-        <f:facet name="header">Action</f:facet>
-        <!-- e.g. a “Mark Complete” button when status==3 -->
+    <h:outputText 
+        value="(DEBUG) fetched #{currentJobsBean.currentJobs.size()} jobs" 
+        style="color:red" />
+
+    <h:form id="currentJobsForm">
+      <div style="text-align: center; margin-top: 20px;">
+        <h:dataTable value="#{currentJobsBean.currentJobs}" 
+                     var="job" 
+                     border="1"
+                     columnClasses="titleCol,providerCol,paymentCol,statusCol,actionCol">
+
+          <h:column>
+            <f:facet name="header">Title</f:facet>
+            <h:outputText value="#{job.title}" />
+          </h:column>
+            
+          <h:column>
+                <f:facet name="header">Description</f:facet>
+                #{job.description}
+              </h:column>  
+
+          <h:column>
+            <f:facet name="header">Provider</f:facet>
+            <h:outputText value="#{job.provider.username}" />
+          </h:column>
+
+          <h:column>
+            <f:facet name="header">Payment</f:facet>
+            <h:outputText value="#{job.paymentOffer}" />
+          </h:column>
+
+          <h:column>
+            <f:facet name="header">Status</f:facet>
+            <h:outputText value="#{job.statusLabel}" />
+          </h:column>
+
+          <h:column>
+            <f:facet name="header">Action</f:facet>
+            <!-- Revoke when status == 2 -->
+            <h:commandButton value="Revoke"
+                             action="#{currentJobsBean.revoke(job)}"
+                             rendered="#{job.status == 2}" />
+
+            <!-- Complete when status == 3 -->
+            <h:commandButton value="Complete"
+                             action="#{currentJobsBean.complete(job)}"
+                             rendered="#{job.status == 3}" />
+          </h:column>
+
+        </h:dataTable>
+      </div>
+    </h:form>
+    
+    
+    <h2>My Applications</h2>
         <h:form>
-          <h:commandButton value="Mark Complete"
-                           action="#{currentJobsBean.complete(job)}"
-                           rendered="#{job.status == 3}" />
+          <h:dataTable value="#{currentJobsBean.myApplications}" var="offer"
+                       border="1"
+                       columnClasses="titleCol,providerCol,paymentCol,statusCol,actionCol">
+            <h:column>
+              <f:facet name="header">Title</f:facet>
+              #{offer.job.title}
+            </h:column>
+            <h:column>
+              <f:facet name="header">Description</f:facet>
+              #{offer.job.description}
+            </h:column>
+              <h:column>
+            <f:facet name="header">Provider</f:facet>
+            <h:outputText value="#{offer.job.provider.username}" />
+          </h:column>
+
+          <h:column>
+            <f:facet name="header">Payment</f:facet>
+            <h:outputText value="#{offer.job.paymentOffer}" />
+          </h:column>
+
+          <h:column>
+            <f:facet name="header">Status</f:facet>
+            <h:outputText value="In Review" />
+          </h:column>
+
+          <h:column>
+            <f:facet name="header">Action</f:facet>
+            <!-- Revoke offer while application still under review -->
+            <h:commandButton value="Revoke"
+                             action="#{currentJobsBean.revoke(job)}"
+                             rendered="#{offer.job.status == 1}" />
+            </h:column>
+
+          </h:dataTable>
         </h:form>
-      </h:column>
-    </h:dataTable>
-  </ui:define>
+          </ui:define>
+
 </ui:composition>
-
 </html>
-
