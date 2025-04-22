@@ -7,42 +7,56 @@
 
     <ui:define name="content">
         <h2>Job Market</h2>
-        <h:outputText value="(DEBUG) fetched #{browseJobsBean.openJobs.size()} jobs" style="color:red"/>
+ 
 
-        
         <!-- Wrap the entire table in a single form -->
         <h:form id="findJobsForm">
-          <div style="text-align: center; margin-top: 20px;">
-            <h:dataTable value="#{browseJobsBean.openJobs}" var="job" border="1"
-                         style="margin: 0 auto;">
-
-              <h:column>
+            <h:panelGrid columns="3" style="margin-bottom:1em;">
+                <h:outputLabel for="searchBox" value="Keyword:"/>
+                <h:inputText id="searchBox"
+                             value="#{findJobsBean.searchKeyword}"
+                             style="width:300px"/>
+                <h:commandButton value="Search"
+                                 action="#{findJobsBean.search}"/>
+            </h:panelGrid>
+            
+            <div style="text-align: center; margin-top: 20px;">
+           
+            <h:dataTable value="#{findJobsBean.jobs}" var="job" border="1"
+                         style="margin: 0 auto;"
+                         >
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{job.jobId}
+            </h:column>
+                
+            <h:column>
                 <f:facet name="header">Title</f:facet>
                 #{job.title}
-              </h:column>
+            </h:column>
 
-              <h:column>
+            <h:column>
                 <f:facet name="header">Description</f:facet>
                 #{job.description}
-              </h:column>
+            </h:column>
 
-              <h:column>
+            <h:column>
                 <f:facet name="header">Payment</f:facet>
                 #{job.paymentOffer}
-              </h:column>
+            </h:column>
 
-              <h:column>
+            <h:column>
                 <f:facet name="header">Status</f:facet>
                 #{job.statusLabel}
-              </h:column>
+            </h:column>
 
-              <h:column>
+            <h:column>
                 <f:facet name="header">Action</f:facet>
                 <!-- Accept button triggers offer action on bean -->
                 <h:commandButton value="Accept"
                                  action="#{browseJobsBean.offerForJob(job)}"
                                  rendered="#{job.status == 1}"/>
-              </h:column>
+            </h:column>
 
             </h:dataTable>
           </div>

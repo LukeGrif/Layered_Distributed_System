@@ -96,5 +96,23 @@ public class JobService {
     .setParameter("f", f)
     .getResultList();
 }
+  
+  public List<Job> findByKeyword(String keyword) {
+    if (keyword == null || keyword.trim().isEmpty()) {
+        // return all open jobs
+        return getOpenJobs();
+    }
+    String pattern = "%" + keyword.trim().toLowerCase() + "%";
+    return em.createQuery(
+            "SELECT j FROM Job j " +
+            " WHERE j.status = 1 " +
+            "   AND (LOWER(j.keyword) LIKE :pat)",
+            Job.class
+        )
+        .setParameter("pat", pattern)
+        .getResultList();
+}
+  
+  
       
 }
