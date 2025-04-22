@@ -74,7 +74,20 @@ public class JobService {
           .setParameter("f", freelancer)
           .getResultList();
   }
-    
+   
+    // inside JobService.java
+public double getCompletedEarningsForFreelancer(Long freelancerId) {
+    Double total = em.createQuery(
+        "SELECT COALESCE(SUM(j.paymentOffer),0) " +
+        "FROM Job j " +
+        "WHERE j.assignedFreelancer.id = :fid " +
+        "  AND j.status = 3",       // 3 = completed
+        Double.class)
+      .setParameter("fid", freelancerId)
+      .getSingleResult();
+    return total;
+}
+
     public void revokeJob(Job job) {
     Job managed = em.find(Job.class, job.getJobId());
     // un-assign the freelancer and reset to “open”
