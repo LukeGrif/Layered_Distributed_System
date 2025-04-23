@@ -9,7 +9,9 @@
             <h:commandButton value="Profile" action="freelancerProfile" style="width:90px"/>
             <h:commandButton value="Logout" action="home" style="width:90px"/>
             <h:panelGroup rendered="#{loginBean.loggedInUser != null}">
-                <h:outputText value="Logged In: #{loginBean.loggedInUser.name}" />
+                <h:outputText value="Logged In: #{loginBean.loggedInUser.name}" /><br/>
+                <h:outputText value="" /><br/>
+                <h:outputText value="Balance:€#{profileBean.paymentBalance}" /><br/>
             </h:panelGroup>
 
 

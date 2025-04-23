@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import services.JobService;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class BrowseJobsBean implements Serializable {
         Offer offer = new Offer();
         offer.setJob(job);
         offer.setFreelancer(freelancer);
-        //offer.setOfferedAt(LocalDateTime.now());
+        offer.setOfferedAt(LocalDateTime.now());
 
         //job.getProvider().getUsername(); // optional for display
         jobService.saveOffer(offer);

@@ -1,12 +1,10 @@
+// entities/Offer.java
+
 package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import java.io.Serializable;
-
+import java.time.LocalDateTime;
 
 @Entity
 public class Offer implements Serializable {
@@ -16,6 +14,15 @@ public class Offer implements Serializable {
 
     @ManyToOne
     private Freelancer freelancer;
+
+    @ManyToOne
+    private Job job;
+
+    // New field to capture when the offer was created
+    @Column(name = "offered_at", nullable = false)
+    private LocalDateTime offeredAt;
+
+    // --- existing getters/setters ---
 
     public Long getId() {
         return id;
@@ -41,8 +48,11 @@ public class Offer implements Serializable {
         this.job = job;
     }
 
+    public LocalDateTime getOfferedAt() {
+        return offeredAt;
+    }
 
-    @ManyToOne
-    private Job job;
-
+    public void setOfferedAt(LocalDateTime offeredAt) {
+        this.offeredAt = offeredAt;
+    }
 }

@@ -1,6 +1,5 @@
 package beans;
 
-import beans.LoginBean;
 import entities.Admin;
 import entities.Freelancer;
 import entities.Provider;

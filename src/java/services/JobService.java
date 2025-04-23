@@ -5,15 +5,16 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Stateless
 public class JobService {
-    
+    private static final Logger LOGGER = Logger.getLogger(JobService.class.getName());
+
     @Inject
     private JobService jobService;
     @PersistenceContext(unitName = "MarketPlaceDS")
     private EntityManager em;
-
 
     public void createJob(String title, String keyword, String description, double paymentOffer, Provider provider) {
         Job job = new Job();
@@ -42,17 +43,28 @@ public class JobService {
         j.setAssignedFreelancer(freelancer);
         j.setStatus(2); // 2: in review
         em.merge(j);
+        LOGGER.info(String.format(
+            "Provider '%s' accepted freelancer '%s' for job %d",
+            j.getProvider().getUsername(),
+            freelancer.getUsername(),
+            j.getJobId()
+        ));
     }
 
     public void saveOffer(Offer offer) {
-    em.persist(offer);
+        em.persist(offer);
+        LOGGER.info(String.format(
+            "Freelancer '%s' offered to undertake job %d at %s",
+            offer.getFreelancer().getUsername(),
+            offer.getJob().getJobId(),
+            offer.getOfferedAt()
+        ));
     }
     
     public void updateJob(Job job) {
-    em.merge(job);
+        em.merge(job);
     }
     
-    // in JobService.java
     public List<Job> getJobsForFreelancer(Freelancer f) {
         return em.createQuery(
             "SELECT j FROM Job j WHERE j.assignedFreelancer = :f", Job.class)
@@ -69,13 +81,12 @@ public class JobService {
           .getResultList();
     }
    
-    
     public double getCompletedEarningsForFreelancer(Long freelancerId) {
         Double total = em.createQuery(
             "SELECT COALESCE(SUM(j.paymentOffer),0) " +
             "FROM Job j " +
             "WHERE j.assignedFreelancer.id = :fid " +
-            "  AND j.status = 3",       // 3 = completed
+            "  AND j.status = 3",       // 3 = completed
             Double.class)
           .setParameter("fid", freelancerId)
           .getSingleResult();
@@ -83,52 +94,57 @@ public class JobService {
     }
 
     public void revokeJob(Job job) {
-    Job managed = em.find(Job.class, job.getJobId());
-    // un-assign the freelancer and reset to “open”
-    managed.setAssignedFreelancer(null);
-    managed.setStatus(1);
-    // JPA will auto-flush on transaction commit
-  }
+        Job managed = em.find(Job.class, job.getJobId());
+        managed.setAssignedFreelancer(null);
+        managed.setStatus(1);
+        em.merge(managed);
+    }
 
-  public void completeJob(Job job) {
-    Job managed = em.find(Job.class, job.getJobId());
-    managed.setStatus(3);
-  }
-  
-  public List<Offer> getOffersForFreelancer(Freelancer f) {
-    return em.createQuery(
-        "SELECT o FROM Offer o WHERE o.freelancer = :f",
-        Offer.class
-    )
-    .setParameter("f", f)
-    .getResultList();
-}
-  
-  public List<Job> findByKeyword(String keyword) {
-    if (keyword == null || keyword.trim().isEmpty()) {
-        // return all open jobs
-        return getOpenJobs();
+    public void completeJob(Job job) {
+        Job managed = em.find(Job.class, job.getJobId());
+        managed.setStatus(3);
+        em.merge(managed);
+        // Log completion
+        Freelancer f = managed.getAssignedFreelancer();
+        if (f != null) {
+            LOGGER.info(String.format(
+                "Job %d marked as completed; credited freelancer '%s' with %.2f tokens",
+                managed.getJobId(),
+                f.getUsername(),
+                managed.getPaymentOffer()
+            ));
+        } else {
+            LOGGER.warning(String.format(
+                "Job %d marked as completed but no freelancer was assigned",
+                managed.getJobId()
+            ));
+        }
     }
-    String pattern = "%" + keyword.trim().toLowerCase() + "%";
-    return em.createQuery(
-            "SELECT j FROM Job j " +
-            " WHERE j.status = 1 " +
-            "   AND (LOWER(j.keyword) LIKE :pat)",
-            Job.class
-        )
-        .setParameter("pat", pattern)
-        .getResultList();
+    
+    public List<Offer> getOffersForFreelancer(Freelancer f) {
+        return em.createQuery(
+            "SELECT o FROM Offer o WHERE o.freelancer = :f", Offer.class)
+          .setParameter("f", f)
+          .getResultList();
     }
-  
+    
+    public List<Job> findByKeyword(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getOpenJobs();
+        }
+        String pattern = "%" + keyword.trim().toLowerCase() + "%";
+        return em.createQuery(
+                "SELECT j FROM Job j " +
+                " WHERE j.status = 1 " +
+                "   AND (LOWER(j.keyword) LIKE :pat)",
+                Job.class
+            )
+            .setParameter("pat", pattern)
+            .getResultList();
+    }
+    
     public Job findById(Long id) {
         if (id == null) return null;
         return em.find(Job.class, id);
-  }
-  
-    
-  
-  
-  
-  
-      
+    }
 }
