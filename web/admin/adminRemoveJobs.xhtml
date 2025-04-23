@@ -13,6 +13,28 @@
 
             <h:commandButton value="Remove Job" action="#{adminBean.removeJob}" />
         </h:form>
+        
+        <h2>Current Jobs</h2>
+        <h:form id="currentJobsForm">
+          <table border="1" style="margin:0 auto; margin-top:20px;">
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Id</th>
+            </tr>
+            <ui:repeat var="job" value="#{jobBean.allJobs}">
+                <tr>
+                  <td>#{job.title}</td>
+                  <td>#{job.description}</td>
+                  <td>#{job.paymentOffer}</td>
+                  <td>#{job.statusLabel}</td>
+                  <td>#{job.jobId}</td>
+                </tr>
+            </ui:repeat>
+          </table>
+        </h:form>
     </ui:define>
 </ui:composition>
 </html>

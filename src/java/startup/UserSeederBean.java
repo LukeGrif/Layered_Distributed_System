@@ -5,11 +5,12 @@ import entities.Freelancer;
 import entities.Provider;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
-//@Startup
+@Startup
 @Singleton
 public class UserSeederBean {
 

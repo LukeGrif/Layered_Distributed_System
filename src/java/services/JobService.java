@@ -37,6 +37,11 @@ public class JobService {
         return em.createQuery("SELECT j FROM Job j WHERE j.status = 1", Job.class)
                  .getResultList();
     }
+    
+    public List<Job> getAllJobs() {
+        return em.createQuery("SELECT j FROM Job j", Job.class)
+                 .getResultList();
+    }
 
     public void assignFreelancerToJob(Job job, Freelancer freelancer) {
         Job j = em.find(Job.class, job.getJobId());

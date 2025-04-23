@@ -2,6 +2,7 @@ package beans;
 
 import entities.Job;
 import entities.Provider;
+import entities.Admin;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -20,6 +21,7 @@ public class JobBean implements Serializable {
     private double paymentOffer;
 
     private List<Job> providerJobs;
+    private List<Job> allJobs;
 
     @Inject
     private JobService jobService;
@@ -37,6 +39,11 @@ public class JobBean implements Serializable {
     public List<Job> getProviderJobs() {
         Provider provider = (Provider) loginBean.getLoggedInUser();
         return jobService.getJobsByProvider(provider);
+    }
+    
+    public List<Job> getAllJobs() {
+        Admin admin = (Admin) loginBean.getLoggedInUser();
+        return jobService.getAllJobs();
     }
 
     private void clearForm() {
