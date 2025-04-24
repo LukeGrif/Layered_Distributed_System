@@ -1,76 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/templates/freelancerTemplate.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition 
+    template="/templates/freelancerTemplate.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="content">
-        <h2>Job Market</h2>
- 
+  <ui:define name="content">
+    <h2>Job Market</h2>
 
-        <!-- Wrap the entire table in a single form -->
-        <h:form id="findJobsForm">
-            <h:panelGrid columns="3" style="margin-bottom:1em;">
-                <h:outputLabel for="searchBox" value="Keyword:"/>
-                <h:inputText id="searchBox"
-                             value="#{findJobsBean.searchKeyword}"
-                             style="width:300px"/>
-                <h:commandButton value="Search"
-                                 action="#{findJobsBean.search}"/>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="3" style="margin-bottom:2em;">
-                <h:outputLabel for="searchIdBox" value="Job ID:"/>
-                <h:inputText id="searchIdBox"
-                             value="#{findJobsBean.searchJobId}"
-                             style="width:100px"/>
-                               
-                <h:commandButton value="Search by ID"
-                                 action="#{findJobsBean.searchById}"/>
-            </h:panelGrid>
-            
-            <div style="text-align: center; margin-top: 20px;">
-           
-            <h:dataTable value="#{findJobsBean.jobs}" var="job" border="1"
-                         style="margin: 0 auto;"
-                         >
-            <h:column>
-                <f:facet name="header">ID</f:facet>
-                #{job.jobId}
-            </h:column>
-                
-            <h:column>
-                <f:facet name="header">Title</f:facet>
-                #{job.title}
-            </h:column>
+    <h:form id="findJobsForm">
 
-            <h:column>
-                <f:facet name="header">Description</f:facet>
-                #{job.description}
-            </h:column>
+      <!-- Keyword search -->
+      <h:panelGrid columns="3" style="margin-bottom:1em;">
+        <h:outputLabel for="kwBox" value="Keyword:"/>
+        <h:inputText id="kwBox"
+                     value="#{findJobsBean.searchKeyword}"
+                     style="width:300px"/>
+        <h:commandButton value="Search"
+                         action="#{findJobsBean.searchByKeyword}">
+          <f:ajax execute="@this kwBox" render="resultsPanel"/>
+        </h:commandButton>
+      </h:panelGrid>
 
-            <h:column>
-                <f:facet name="header">Payment</f:facet>
-                #{job.paymentOffer}
-            </h:column>
+      <!-- Job ID search -->
+      <h:panelGrid columns="3" style="margin-bottom:2em;">
+        <h:outputLabel for="idBox" value="Job ID:"/>
+        <h:inputText id="idBox"
+                     value="#{findJobsBean.searchJob}"
+                     converter="jobConverter"
+                     style="width:100px"/>
+        <h:commandButton value="Search by ID"
+                         action="#{findJobsBean.searchByJob}">
+          <f:ajax execute="@this idBox" render="resultsPanel"/>
+        </h:commandButton>
+      </h:panelGrid>
 
-            <h:column>
-                <f:facet name="header">Status</f:facet>
-                #{job.statusLabel}
-            </h:column>
+      <!-- Results table -->
+      <h:panelGroup id="resultsPanel" layout="block" 
+                    style="text-align:center; margin-top:20px;">
+        <h:dataTable id="jobsTable"
+                     value="#{findJobsBean.jobs}"
+                     var="job"
+                     border="1"
+                     style="margin:0 auto;">
 
-            <h:column>
-                <f:facet name="header">Action</f:facet>
-                <!-- Accept button triggers offer action on bean -->
-                <h:commandButton value="Accept"
-                                 action="#{browseJobsBean.offerForJob(job)}"
-                                 rendered="#{job.status == 1}"/>
-            </h:column>
+          <h:column>
+            <f:facet name="header">ID</f:facet>#{job.jobId}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Title</f:facet>#{job.title}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Description</f:facet>#{job.description}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Payment</f:facet>#{job.paymentOffer}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Status</f:facet>#{job.statusLabel}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:commandButton value="Accept"
+                             action="#{browseJobsBean.offerForJob(job)}"
+                             rendered="#{job.status == 1}"/>
+          </h:column>
 
-            </h:dataTable>
-          </div>
-        </h:form>
+        </h:dataTable>
+      </h:panelGroup>
 
-    </ui:define>
+    </h:form>
+  </ui:define>
+
 </ui:composition>
