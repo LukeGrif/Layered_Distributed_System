@@ -27,13 +27,14 @@ public class JobBean implements Serializable {
     private JobService jobService;
 
     @Inject
-    private LoginBean loginBean; // we assume this has the logged-in user
+    private LoginBean loginBean; 
 
     public String postJob() {
         Provider provider = (Provider) loginBean.getLoggedInUser();
         jobService.createJob(title, keyword, description, paymentOffer, provider);
         clearForm();
-        return "providerDashboard.xhtml?faces-redirect=true";
+        return "/provider/providerCreateJobs?faces-redirect=true";
+
     }
 
     public List<Job> getProviderJobs() {
@@ -104,8 +105,8 @@ public class JobBean implements Serializable {
     }
     
     public String deleteJob(Job job) {
-    jobService.deleteJob(job);   // physically remove from DB
-    return null;                 // stay on the same view
+    jobService.deleteJob(job);   // physically remove from the database
+    return null;                
 }
 
 }
