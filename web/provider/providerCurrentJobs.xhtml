@@ -8,10 +8,9 @@
 
   <ui:define name="content">
     <h2>Job Market (Provider)</h2>
-    <h:outputText value="(DEBUG) fetched #{jobBean.providerJobs.size()} jobs"
-                  style="color:red"/>
 
-    <!-- CURRENT JOBS: status == 1 -->
+
+    <!-- Checks if CURRENT JOBS if status == 1 -->
     <h2>Current Jobs</h2>
     <h:form id="currentJobsForm">
       <table border="1" style="margin:0 auto; margin-top:20px;">
@@ -31,8 +30,10 @@
                         <td>
             <!-- row-level delete button -->
             <h:commandButton value="Delete"
-                             action="#{jobBean.deleteJob(job)}"
-                             update="currentJobsForm"/>
+                 action="#{jobBean.deleteJob(job)}">
+  <f:ajax render="currentJobsForm"/>
+</h:commandButton>
+
           </td>
             </tr>
           </ui:fragment>
@@ -40,7 +41,7 @@
       </table>
     </h:form>
 
-    <!-- IN PROGRESS JOBS: status == 2 -->
+    <!-- Table for In PROGRESS JOBS if status == 2 -->
     <h2>In Progress Jobs</h2>
     <h:form id="inProgressJobsForm">
       <table border="1" style="margin:0 auto; margin-top:20px;">
@@ -69,7 +70,7 @@
       </table>
     </h:form>
 
-    <!-- COMPLETED JOBS: status == 3 -->
+    <!-- Table for COMPLETED JOBS if status == 3 -->
     <h2>Completed Jobs</h2>
     <h:form id="completedJobsForm">
       <table border="1" style="margin:0 auto; margin-top:20px;">

@@ -11,9 +11,7 @@
 
   <ui:define name="content">
     <h2>Job Applications</h2>
-    <h:outputText
-        value="(DEBUG) fetched #{providerApplicationsBean.applications.size()} applications"
-        style="color:red" />
+
 
     <h:form id="applicationsForm">
       <div style="text-align:center; margin-top:20px;">
@@ -22,31 +20,31 @@
                      border="1"
                      columnClasses="titleCol,freelancerCol,skillsCol,messageCol,actionCol">
 
-          <!-- Job Title -->
+          
           <h:column>
             <f:facet name="header">Job Title</f:facet>
             <h:outputText value="#{offer.job.title}" />
           </h:column>
 
-          <!-- Freelancer Name -->
+          
           <h:column>
             <f:facet name="header">Freelancer</f:facet>
             <h:outputText value="#{offer.freelancer.username}" />
           </h:column>
 
-          <!-- Skills -->
+          
           <h:column>
             <f:facet name="header">Skills</f:facet>
             <h:outputText value="#{offer.freelancer.skills}" />
           </h:column>
 
-          <!-- Message -->
+       
           <h:column>
             <f:facet name="header">Message</f:facet>
             <h:outputText value="#{offer.freelancer.message}" />
           </h:column>
 
-          <!-- Accept Button with JSF-native Ajax -->
+          
           <h:column>
             <f:facet name="header">Action</f:facet>
             <h:commandButton value="Accept"
