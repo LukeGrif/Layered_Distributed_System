@@ -40,7 +40,6 @@ public class BrowseJobsBean implements Serializable {
         offer.setFreelancer(freelancer);
         offer.setOfferedAt(LocalDateTime.now());
 
-        //job.getProvider().getUsername(); // optional for display
         jobService.saveOffer(offer);
 
         return "freelancerCurrentJobs.xhtml?faces-redirect=true";
