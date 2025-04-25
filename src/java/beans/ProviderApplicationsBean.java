@@ -54,7 +54,7 @@ public class ProviderApplicationsBean implements Serializable {
 
     /** Accept a freelancer’s offer. */
     public void accept(Offer offer) {
-        // Re‑use your existing service method
+        // Re‑use existing service method
         jobService.assignFreelancerToJob(
             offer.getJob(),
             offer.getFreelancer()

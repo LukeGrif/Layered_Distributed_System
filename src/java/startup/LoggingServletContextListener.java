@@ -14,7 +14,7 @@ public class LoggingServletContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext ctx = sce.getServletContext();
 
-        // Get the absolute path to the webapp root
+        // get the absolute path to the webapp root
         String appPath = ctx.getRealPath("/");
         if (appPath == null) {
             appPath = System.getProperty("user.dir");
@@ -22,19 +22,17 @@ public class LoggingServletContextListener implements ServletContextListener {
 
         File logFile = new File(appPath, "marketplace-app.log");
         try {
-            // Create parent directory if needed
+            // create parent directory if needed
             File parent = logFile.getParentFile();
             if (parent != null && !parent.exists()) {
                 parent.mkdirs();
             }
 
-            // Set up JUL FileHandler
+            // set up FileHandler
             fileHandler = new FileHandler(logFile.getAbsolutePath(), true);
             fileHandler.setFormatter(new SimpleFormatter());
 
             Logger root = Logger.getLogger("");
-            // (Optional) remove console handler:
-            // for (Handler h : root.getHandlers()) if (h instanceof ConsoleHandler) root.removeHandler(h);
             root.addHandler(fileHandler);
 
             root.info("=== Logging initialized to " + logFile.getAbsolutePath() + " ===");

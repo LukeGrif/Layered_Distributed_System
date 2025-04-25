@@ -3,7 +3,6 @@
   <persistence-unit name="MarketPlaceDS" transaction-type="JTA">
     <jta-data-source>jdbc/MarketPlaceDS</jta-data-source>
     <properties>
-      <!-- Temporarily set to 'none' to avoid DB issues during initial testing -->
       <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>

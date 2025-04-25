@@ -24,12 +24,6 @@ public class AuthFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         String uri = req.getRequestURI();
 
-//        if (loginBean == null || loginBean.getLoggedInUser() == null) {
-//            // Not logged in
-//            res.sendRedirect(req.getContextPath() + "/login.xhtml");
-//            return;
-//        }
-
         // Role-based restriction
         if (uri.contains("/admin/") && !(loginBean.getLoggedInUser() instanceof Admin)) {
             res.sendRedirect(req.getContextPath() + "/unauthorised.xhtml");
