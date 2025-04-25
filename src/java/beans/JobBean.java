@@ -102,4 +102,10 @@ public class JobBean implements Serializable {
     public void setLoginBean(LoginBean loginBean) {
         this.loginBean = loginBean;
     }
+    
+    public String deleteJob(Job job) {
+    jobService.deleteJob(job);   // physically remove from DB
+    return null;                 // stay on the same view
+}
+
 }

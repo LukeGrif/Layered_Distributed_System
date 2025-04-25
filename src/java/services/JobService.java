@@ -125,6 +125,11 @@ public class JobService {
             ));
         }
     }
+
+
+    public void deleteJob(Job job) {
+        em.remove(em.contains(job) ? job : em.merge(job));
+    }
     
     public List<Offer> getOffersForFreelancer(Freelancer f) {
         return em.createQuery(

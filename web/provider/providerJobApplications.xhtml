@@ -46,12 +46,15 @@
             <h:outputText value="#{offer.freelancer.message}" />
           </h:column>
 
-          <!-- Accept Button -->
+          <!-- Accept Button with JSF-native Ajax -->
           <h:column>
             <f:facet name="header">Action</f:facet>
             <h:commandButton value="Accept"
                              action="#{providerApplicationsBean.accept(offer)}"
-                             rendered="#{offer.job.status == 1}" />
+                             rendered="#{offer.job.status == 1}">
+              <f:ajax execute="@this"
+                      render="applicationsForm"/>
+            </h:commandButton>
           </h:column>
 
         </h:dataTable>

@@ -28,6 +28,12 @@
               <td>#{job.description}</td>
               <td>#{job.paymentOffer}</td>
               <td>#{job.statusLabel}</td>
+                        <td>
+            <!-- row-level delete button -->
+            <h:commandButton value="Delete"
+                             action="#{jobBean.deleteJob(job)}"
+                             update="currentJobsForm"/>
+          </td>
             </tr>
           </ui:fragment>
         </ui:repeat>
