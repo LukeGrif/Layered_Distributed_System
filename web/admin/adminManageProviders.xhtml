@@ -8,13 +8,14 @@
     <ui:define name="content">
         <h:form>
             <h3>Register Provider</h3>
-            <h:outputLabel value="Name:" for="providerName" />
-            <h:inputText id="providerName" value="#{adminBean.provider.name}" required="true" />
-            <h:outputLabel value="Username:" for="providerUsername" />
-            <h:inputText id="providerUsername" value="#{adminBean.provider.username}" required="true" />
-            <h:outputLabel value="Password" for="providerPassword" />
-            <h:inputText id="providerPassword" value="#{adminBean.provider.password}" required="true" />
+            <h:outputLabel value="Name:" for="providerName" /><br/>
+            <h:inputText id="providerName" value="#{adminBean.provider.name}" required="true" /><br/>
+            <h:outputLabel value="Username:" for="providerUsername" /><br/>
+            <h:inputText id="providerUsername" value="#{adminBean.provider.username}" required="true" /><br/>
+            <h:outputLabel value="Password" for="providerPassword" /><br/>
+            <h:inputText id="providerPassword" value="#{adminBean.provider.password}" required="true" /><br/>
             
+            <br/>
 
             <h:commandButton value="Register Provider" action="#{adminBean.registerProvider}" />
         </h:form>
