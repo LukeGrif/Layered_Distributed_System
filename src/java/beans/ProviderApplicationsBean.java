@@ -19,17 +19,17 @@ import java.util.List;
 public class ProviderApplicationsBean implements Serializable {
 
     @Inject
-    private LoginBean loginBean;            // gives logged in user
+    private LoginBean loginBean;            // gives us the logged‑in user
 
     @Inject
-    private JobService jobService;          
+    private JobService jobService;          // you already have this EJB
 
     @PersistenceContext(unitName = "MarketPlaceDS")
-    private EntityManager em;            
+    private EntityManager em;               // used for a simple JPQL query
 
-    private List<Offer> applications;       
+    private List<Offer> applications;       // list shown in the table
 
-    /** Loads offers only if the (status == 1). */
+    /** Load pending offers for this provider’s jobs (status == 1). */
     @PostConstruct
     public void init() {
         Object user = loginBean.getLoggedInUser();
@@ -47,22 +47,20 @@ public class ProviderApplicationsBean implements Serializable {
         }
     }
 
-   
+    /** Getter for JSF `<h:dataTable>` binding. */
     public List<Offer> getApplications() {
         return applications;
     }
 
-    
+    /** Accept a freelancer’s offer. */
     public void accept(Offer offer) {
-<<<<<<< HEAD
-=======
         // Re‑use existing service method
->>>>>>> 0f4981e54443cb10045d5dc0edf588799daa7ed8
         jobService.assignFreelancerToJob(
             offer.getJob(),
             offer.getFreelancer()
         );
 
+        // Remove from list so table refreshes on next render
         applications.remove(offer);
     }
 }

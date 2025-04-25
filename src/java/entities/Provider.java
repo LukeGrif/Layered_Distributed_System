@@ -6,5 +6,4 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("provider")
 public class Provider extends BaseUser {
-    // Can add any additional provider-specific fields later
 }

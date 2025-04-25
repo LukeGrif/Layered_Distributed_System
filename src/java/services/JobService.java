@@ -109,7 +109,6 @@ public class JobService {
         Job managed = em.find(Job.class, job.getJobId());
         managed.setStatus(3);
         em.merge(managed);
-        // Log completion
         Freelancer f = managed.getAssignedFreelancer();
         if (f != null) {
             LOGGER.info(String.format(

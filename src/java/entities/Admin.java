@@ -6,5 +6,4 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("admin")
 public class Admin extends BaseUser {
-    // optional admin-specific fields later
 }
